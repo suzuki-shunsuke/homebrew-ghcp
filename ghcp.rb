@@ -6,21 +6,21 @@ class Ghcp < Formula
   desc "Tool to fork a repository, commit files, create a pull request and upload assets using GitHub API
 "
   homepage "https://github.com/suzuki-shunsuke/ghcp"
-  version "1.14.0"
+  version "1.15.0"
   license "Apache-2.0"
 
   on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.14.0/ghcp_darwin_arm64.tar.gz"
-      sha256 "5e59c2ee33a325d90e74e32870725d33e8b7df1999c30322901372c344f1ca13"
+    on_intel do
+      url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.15.0/ghcp_darwin_amd64.tar.gz"
+      sha256 "524745158ffa66b6540d5729bf6ae3225224c328f458b9148761e0c17b0ba983"
 
       def install
         bin.install "ghcp"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.14.0/ghcp_darwin_amd64.tar.gz"
-      sha256 "f97d91f4ddceff2c56606b666623d744ad9af6eb0565fdec6e02df37416c0743"
+    on_arm do
+      url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.15.0/ghcp_darwin_arm64.tar.gz"
+      sha256 "8b251d324489b0cda049f56db0bd389b763130d1dadf959ece60e23c59a076b7"
 
       def install
         bin.install "ghcp"
@@ -29,20 +29,24 @@ class Ghcp < Formula
   end
 
   on_linux do
-    if Hardware::CPU.intel?
-      url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.14.0/ghcp_linux_amd64.tar.gz"
-      sha256 "1286d634214d6d16e7c9493503a8e5cddf42f400d8a03ae88963e40df014a85a"
+    on_intel do
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.15.0/ghcp_linux_amd64.tar.gz"
+        sha256 "399bbe5e70c427bc44150010c50429ddfea393c1d4c0c24e13b68d12d4f46872"
 
-      def install
-        bin.install "ghcp"
+        def install
+          bin.install "ghcp"
+        end
       end
     end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.14.0/ghcp_linux_arm64.tar.gz"
-      sha256 "32dfd9f88715d95a8d3e570415d193f51203e6529f815295ac8fea451ed12344"
+    on_arm do
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/suzuki-shunsuke/ghcp/releases/download/v1.15.0/ghcp_linux_arm64.tar.gz"
+        sha256 "4b37c2652136c60c1b9b1f9cc6ae21f8b05e51061e9860eb30ac4aac3fa6be4b"
 
-      def install
-        bin.install "ghcp"
+        def install
+          bin.install "ghcp"
+        end
       end
     end
   end
